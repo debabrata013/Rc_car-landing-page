@@ -1,64 +1,413 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RC Car - Landing Page</title>
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TurboMax RC - Ultimate Speed Machine</title>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'slide-in-left': 'slideInLeft 0.8s ease-out forwards',
+                        'slide-in-right': 'slideInRight 0.8s ease-out forwards',
+                        'pulse-hover': 'pulse 0.6s ease-in-out',
+                        'bounce-slow': 'bounce 2s infinite'
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideInLeft: {
+                            '0%': { opacity: '0', transform: 'translateX(-50px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        slideInRight: {
+                            '0%': { opacity: '0', transform: 'translateX(50px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        }
+                    },
+                    colors: {
+                        'red-custom': '#dc2626',
+                        'black-custom': '#000000',
+                        'gray-custom': '#1f1f1f'
+                    },
+                    backgroundImage: {
+                        'gradient-hero': 'linear-gradient(135deg, #1a1a1a 0%, #dc2626 100%)',
+                        'gradient-section': 'linear-gradient(45deg, #000000 0%, #1f1f1f 100%)',
+                        'gradient-button': 'linear-gradient(45deg, #dc2626, #ef4444)',
+                        'gradient-button-hover': 'linear-gradient(45deg, #ef4444, #f87171)'
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-  <header>
-    <nav>
-      <div class="logo">RC Car</div>
-      <ul class="nav-links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#specs">Specifications</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+<body class="bg-black text-white overflow-x-hidden">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-black bg-opacity-90 backdrop-blur-sm z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-red-500">TurboMax RC</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#hero" class="hover:text-red-500 transition-colors duration-300">Home</a>
+                    <a href="#features" class="hover:text-red-500 transition-colors duration-300">Features</a>
+                    <a href="#gallery" class="hover:text-red-500 transition-colors duration-300">Gallery</a>
+                    <a href="#contact" class="hover:text-red-500 transition-colors duration-300">Contact</a>
+                </div>
+                <button class="md:hidden text-red-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
     </nav>
-  </header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <h1>Experience the Thrill of RC Racing</h1>
-        <p>High-performance remote control cars for enthusiasts of all levels</p>
-        <button class="cta-button">Shop Now</button>
-      </div>
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen bg-gradient-to-br from-gray-900 via-black to-red-900 flex items-center justify-center relative overflow-hidden">
+        <!-- Background pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-20 left-20 w-32 h-32 border border-red-500 transform rotate-45"></div>
+            <div class="absolute bottom-20 right-20 w-24 h-24 border border-red-500 transform rotate-12"></div>
+            <div class="absolute top-1/2 left-10 w-16 h-16 border border-red-500 rounded-full"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 py-20 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Hero Text -->
+                <div class="text-center md:text-left opacity-0 transform translate-x-12 transition-all duration-1000 ease-out" id="hero-text">
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                        <span class="text-white">Unleash The</span>
+                        <span class="text-red-500 block">SPEED BEAST</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-8 text-gray-300">
+                        Experience ultimate RC racing with the TurboMax Pro - built for speed, precision, and pure adrenaline.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <button onclick="showBuyAlert()" class="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 px-8 py-4 rounded-full text-lg font-semibold transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                            Buy Now - ₹299
+                        </button>
+                        <button onclick="scrollToSection('features')" class="border-2 border-red-500 px-8 py-4 rounded-full text-lg font-semibold hover:bg-red-500 transition-all duration-300 transform hover:scale-105">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Hero Image -->
+                <div class="flex justify-center opacity-0 transform translate-x-12 transition-all duration-1000 ease-out" id="hero-image">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-red-500 rounded-full blur-xl opacity-30 animate-pulse"></div>
+                        <img src="/images/pic-1.png" 
+                             alt="TurboMax RC Car" 
+                             class="relative z-10 w-full max-w-lg rounded-lg shadow-2xl transform transition-transform duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
     </section>
 
-    <section id="features" class="features">
-      <h2>Key Features</h2>
-      <div class="feature-cards">
-        <!-- Feature cards will go here -->
-      </div>
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gradient-to-r from-black to-gray-900 opacity-0 transform translate-y-12 transition-all duration-1000 ease-out" data-animate="true">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-6xl font-bold mb-6">
+                    <span class="text-red-500">Premium</span> Features
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Engineered for performance, built for excitement. Every detail designed to deliver the ultimate RC experience.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800 hover:border-red-500 transition-all duration-300 transform hover:scale-105 hover:shadow-xl group">
+                    <div class="text-4xl mb-4 transform group-hover:scale-110 transition-transform duration-300">⚡</div>
+                    <h3 class="text-2xl font-bold mb-4 text-red-500">Lightning Speed</h3>
+                    <p class="text-gray-300">Reach speeds up to 45 MPH with our high-performance brushless motor and advanced battery technology.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800 hover:border-red-500 transition-all duration-300 transform hover:scale-105 hover:shadow-xl group">
+                    <div class="text-4xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🎮</div>
+                    <h3 class="text-2xl font-bold mb-4 text-red-500">Precision Control</h3>
+                    <p class="text-gray-300">2.4GHz radio system with 150m range ensures responsive control and interference-free operation.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800 hover:border-red-500 transition-all duration-300 transform hover:scale-105 hover:shadow-xl group">
+                    <div class="text-4xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🛡️</div>
+                    <h3 class="text-2xl font-bold mb-4 text-red-500">All-Terrain Tough</h3>
+                    <p class="text-gray-300">Waterproof chassis and shock-absorbing suspension tackle any surface from sand to concrete.</p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800 hover:border-red-500 transition-all duration-300 transform hover:scale-105 hover:shadow-xl group">
+                    <div class="text-4xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🔋</div>
+                    <h3 class="text-2xl font-bold mb-4 text-red-500">Extended Runtime</h3>
+                    <p class="text-gray-300">High-capacity 7.4V Li-Po battery provides 25+ minutes of non-stop racing action.</p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800 hover:border-red-500 transition-all duration-300 transform hover:scale-105 hover:shadow-xl group">
+                    <div class="text-4xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🔧</div>
+                    <h3 class="text-2xl font-bold mb-4 text-red-500">Easy Maintenance</h3>
+                    <p class="text-gray-300">Modular design with quick-release parts makes repairs and upgrades simple and fast.</p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800 hover:border-red-500 transition-all duration-300 transform hover:scale-105 hover:shadow-xl group">
+                    <div class="text-4xl mb-4 transform group-hover:scale-110 transition-transform duration-300">💎</div>
+                    <h3 class="text-2xl font-bold mb-4 text-red-500">Premium Build</h3>
+                    <p class="text-gray-300">Aircraft-grade aluminum chassis with carbon fiber accents for maximum durability and style.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section id="specs" class="specifications">
-      <h2>Technical Specifications</h2>
-      <!-- Specs content will go here -->
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-black opacity-0 transform translate-y-12 transition-all duration-1000 ease-out" data-animate="true">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-6xl font-bold mb-6">
+                    <span class="text-red-500">Gallery</span> Showcase
+                </h2>
+                <p class="text-xl text-gray-300">
+                    See the TurboMax RC in action from every angle
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Gallery Image 1 -->
+                <div class="transform transition-all duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer" onclick="enlargeImage(this)">
+                    <img src="/images/pic-1.png" 
+                         alt="RC Car Action Shot" 
+                         class="w-full h-64 object-cover rounded-xl">
+                    <div class="mt-4 text-center">
+                        <h4 class="text-lg font-semibold text-red-500">Speed Demon</h4>
+                        <p class="text-gray-400">Full throttle action</p>
+                    </div>
+                </div>
+                
+                <!-- Gallery Image 2 -->
+                <div class="transform transition-all duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer" onclick="enlargeImage(this)">
+                    <img src="/images/pic-2.png" 
+                         alt="RC Car Detail" 
+                         class="w-full h-64 object-cover rounded-xl">
+                    <div class="mt-4 text-center">
+                        <h4 class="text-lg font-semibold text-red-500">Precision Engineering</h4>
+                        <p class="text-gray-400">Every detail matters</p>
+                    </div>
+                </div>
+                
+                <!-- Gallery Image 3 -->
+                <div class="transform transition-all duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer" onclick="enlargeImage(this)">
+                    <img src="/images/pic-3.png
+                    " 
+                         alt="RC Car Off-Road" 
+                         class="w-full h-64 object-cover rounded-xl">
+                    <div class="mt-4 text-center">
+                        <h4 class="text-lg font-semibold text-red-500">All-Terrain Beast</h4>
+                        <p class="text-gray-400">Conquers any surface</p>
+                    </div>
+                </div>
+                
+                <!-- Gallery Image 4 -->
+                <div class="transform transition-all duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer" onclick="enlargeImage(this)">
+                    <img src="/images/pic-4.png" 
+                         alt="RC Car Night Shot" 
+                         class="w-full h-64 object-cover rounded-xl">
+                    <div class="mt-4 text-center">
+                        <h4 class="text-lg font-semibold text-red-500">Night Racer</h4>
+                        <p class="text-gray-400">LED lights included</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section id="gallery" class="gallery">
-      <h2>Gallery</h2>
-      <div class="gallery-grid">
-        <!-- Gallery images will go here -->
-      </div>
+    <!-- Call to Action Section -->
+    <section class="py-20 bg-gradient-to-br from-gray-900 via-red-900 to-black opacity-0 transform translate-y-12 transition-all duration-1000 ease-out" data-animate="true">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6">
+                Ready to <span class="text-red-500">Dominate</span> the Track?
+            </h2>
+            <p class="text-xl md:text-2xl mb-12 text-gray-300 max-w-3xl mx-auto">
+                Join thousands of satisfied racers who've chosen TurboMax RC. Your ultimate racing experience is just one click away.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
+                <div class="text-center transform transition-all duration-300 hover:scale-110">
+                    <div class="text-3xl font-bold text-red-500">⭐ 4.9/5</div>
+                    <div class="text-gray-400">Customer Rating</div>
+                </div>
+                <div class="text-center transform transition-all duration-300 hover:scale-110">
+                    <div class="text-3xl font-bold text-red-500">5000+</div>
+                    <div class="text-gray-400">Happy Customers</div>
+                </div>
+                <div class="text-center transform transition-all duration-300 hover:scale-110">
+                    <div class="text-3xl font-bold text-red-500">2 Year</div>
+                    <div class="text-gray-400">Warranty</div>
+                </div>
+            </div>
+            
+            <button onclick="showBuyAlert()" class="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 px-12 py-6 rounded-full text-2xl font-bold transform transition-all duration-300 hover:scale-105 hover:shadow-2xl animate-pulse">
+                🚗 Get Your TurboMax RC - ₹299
+            </button>
+            
+            <p class="mt-6 text-gray-400">
+                Free shipping • 30-day money-back guarantee • Expert support
+            </p>
+        </div>
     </section>
 
-    <section id="contact" class="contact">
-      <h2>Contact Us</h2>
-      <form id="contact-form">
-        <!-- Form fields will go here -->
-      </form>
-    </section>
-  </main>
+    <!-- Footer -->
+    <footer id="contact" class="py-12 bg-black border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8 text-center md:text-left">
+                <div>
+                    <h3 class="text-2xl font-bold text-red-500 mb-4">TurboMax RC</h3>
+                    <p class="text-gray-400">
+                        Premium RC cars designed for speed enthusiasts and racing professionals.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="#hero" class="block text-gray-400 hover:text-red-500 transition-colors duration-300">Home</a>
+                        <a href="#features" class="block text-gray-400 hover:text-red-500 transition-colors duration-300">Features</a>
+                        <a href="#gallery" class="block text-gray-400 hover:text-red-500 transition-colors duration-300">Gallery</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <p class="hover:text-red-500 transition-colors duration-300 cursor-pointer">📧 support@turbomaxrc.com</p>
+                        <p class="hover:text-red-500 transition-colors duration-300 cursor-pointer">📞 1-800-TURBO-RC</p>
+                        <p class="hover:text-red-500 transition-colors duration-300 cursor-pointer">🌐 www.turbomaxrc.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 TurboMax RC. All rights reserved. Built for speed enthusiasts.</p>
+            </div>
+        </div>
+    </footer>
 
-  <footer>
-    <p>&copy; 2025 RC Car. All rights reserved.</p>
-  </footer>
+    <script>
+        // Smooth scroll function
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
 
-  <script src="/js/main.js"></script>
+        // Buy button alert function
+        function showBuyAlert() {
+            alert('🚗 Awesome choice! The TurboMax RC will be available for purchase soon. Join our mailing list to get notified when pre-orders open!');
+        }
+
+        // Image enlargement function
+        function enlargeImage(element) {
+            const img = element.querySelector('img');
+            if (img.style.transform === 'scale(1.2)') {
+                img.style.transform = 'scale(1)';
+            } else {
+                img.style.transform = 'scale(1.2)';
+            }
+        }
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Initialize animations and observers when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate hero section elements
+            setTimeout(() => {
+                const heroText = document.getElementById('hero-text');
+                const heroImage = document.getElementById('hero-image');
+                if (heroText) {
+                    heroText.style.opacity = '1';
+                    heroText.style.transform = 'translateX(0)';
+                }
+                if (heroImage) {
+                    heroImage.style.opacity = '1';
+                    heroImage.style.transform = 'translateX(0)';
+                }
+            }, 500);
+
+            // Observe sections for scroll animations
+            const animateElements = document.querySelectorAll('[data-animate="true"]');
+            animateElements.forEach(el => observer.observe(el));
+        });
+
+        // Navigation background change on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-opacity-95');
+                nav.classList.remove('bg-opacity-90');
+            } else {
+                nav.classList.add('bg-opacity-90');
+                nav.classList.remove('bg-opacity-95');
+            }
+        });
+
+        // Add smooth scrolling for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.getElementById('hero');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '1';
+        });
+    </script>
 </body>
 </html>
