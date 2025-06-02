@@ -51,6 +51,7 @@ pipeline {
         always {
             // sh 'docker logout || true'
             // cleanWs()
+            echo" Cleaning up workspace..."
         }
         success {
             echo 'Pipeline completed successfully!'
