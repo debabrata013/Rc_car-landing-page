@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'debabratap/rc-landing'
         DOCKER_TAG = "${env.BUILD_NUMBER}"
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+        DOCKERHUB_CREDENTIALS = credentials('ddockerhub-creds-id')
     }
     
     stages {
