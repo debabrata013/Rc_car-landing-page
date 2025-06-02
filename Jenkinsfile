@@ -19,7 +19,11 @@ pipeline {
         
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                sh '''
+                export NVM_DIR="$HOME/.nvm"
+                [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+                npm install
+                '''
             }
         }
         
