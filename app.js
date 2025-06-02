@@ -48,7 +48,8 @@ app.use((req, res, next) => {
 
 // Routes
 app.get('/', (req, res) => {
-  res.send('RC Car Landing Page');
+  // Send the HTML file instead of plain text
+  res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
 // Add metrics endpoint for Prometheus
