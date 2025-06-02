@@ -33,6 +33,18 @@ pipeline {
             }
         }
         
+        stage('Security Scan') {
+            steps {
+                sh '''
+                export NVM_DIR="$HOME/.nvm"
+                [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+                
+                # Run Trivy security scan
+                ./monitoring/trivy-ci.sh || true
+                '''
+            }
+        }
+        
         stage('Build Docker Image') {
             steps {
                 sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
