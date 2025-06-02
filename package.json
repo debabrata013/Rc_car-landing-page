@@ -1,0 +1,25 @@
+{
+  "name": "rc_car-landing-page",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "rc car",
+    "landing page",
+    "express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "Landing page for RC car products",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
