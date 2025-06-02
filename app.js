@@ -3,6 +3,8 @@ const path = require('path');
 const promClient = require('prom-client');
 require('dotenv').config();
 
+console.log('Starting RC Car Landing Page with Prometheus metrics');
+
 // Create a Registry to register the metrics
 const register = new promClient.Registry();
 // Add default metrics (CPU, memory usage, etc.)
@@ -33,24 +35,34 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware to track request metrics
 app.use((req, res, next) => {
+  console.log(`Request: ${req.method} ${req.path}`);
   const start = Date.now();
   res.on('finish', () => {
     const duration = Date.now() - start;
     httpRequestsTotal.inc({ method: req.method, path: req.path, status: res.statusCode });
     httpRequestDuration.observe({ method: req.method, path: req.path, status: res.statusCode }, duration / 1000);
+    console.log(`Response: ${res.statusCode} ${duration}ms`);
   });
   next();
 });
 
 // Routes
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+  res.send('RC Car Landing Page');
 });
 
 // Add metrics endpoint for Prometheus
 app.get('/metrics', async (req, res) => {
-  res.set('Content-Type', register.contentType);
-  res.end(await register.metrics());
+  console.log('Metrics endpoint called');
+  try {
+    res.set('Content-Type', register.contentType);
+    const metrics = await register.metrics();
+    console.log('Metrics generated successfully');
+    res.end(metrics);
+  } catch (error) {
+    console.error('Error generating metrics:', error);
+    res.status(500).send('Error generating metrics');
+  }
 });
 
 // Start server
