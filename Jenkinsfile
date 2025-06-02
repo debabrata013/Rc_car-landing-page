@@ -1,6 +1,15 @@
 pipeline {
     agent any
     
+    environment {
+        DOCKER_IMAGE = 'debabratap/rc-landing'
+        DOCKER_TAG = "${env.BUILD_NUMBER}"
+    }
+    
+    triggers {
+        githubPush()
+    }
+    
     stages {
         stage('Checkout') {
             steps {
@@ -10,9 +19,7 @@ pipeline {
         
         stage('Install Dependencies') {
             steps {
-                sh 'echo "Installing dependencies..."'
-                // Commented out for testing
-                // sh 'npm install'
+                sh 'npm install'
             }
         }
         
@@ -21,12 +28,35 @@ pipeline {
                 sh 'echo "Building application..."'
             }
         }
+        
+        stage('Build Docker Image') {
+            steps {
+                sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
+                sh "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest"
+            }
+        }
+        
+        stage('Push to DockerHub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                    sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                    sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                    sh "docker push ${DOCKER_IMAGE}:latest"
+                }
+            }
+        }
     }
     
     post {
         always {
-            echo 'Pipeline completed'
+            sh 'docker logout || true'
+            cleanWs()
+        }
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
-
