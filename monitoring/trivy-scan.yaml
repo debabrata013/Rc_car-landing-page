@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: trivy-scan
+spec:
+  schedule: "0 0 * * *"  # Run daily at midnight
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: trivy-scanner
+            image: aquasec/trivy:latest
+            args:
+            - image
+            - --severity
+            - HIGH,CRITICAL
+            - --format
+            - table
+            - rc-landing:latest
+          restartPolicy: OnFailure
