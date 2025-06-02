@@ -17,6 +17,7 @@ spec:
       containers:
       - name: rc-car-landing
         image: rc-landing:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 3000
         resources:
@@ -38,5 +39,3 @@ spec:
             port: 3000
           initialDelaySeconds: 5
           periodSeconds: 5
-      imagePullSecrets:
-      - name: dockerhub-creds
