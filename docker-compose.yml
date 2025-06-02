@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  rc-landing:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: debabratap/rc-landing:latest
+    container_name: rc-landing-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    
+  # You can add more services here as your application grows
+  # For example, a database service:
+  # 
+  # db:
+  #   image: mongo:latest
+  #   container_name: rc-landing-db
+  #   volumes:
+  #     - mongodb_data:/data/db
+  #   ports:
+  #     - "27017:27017"
+  #   restart: unless-stopped
+  
+# volumes:
+#   mongodb_data:
